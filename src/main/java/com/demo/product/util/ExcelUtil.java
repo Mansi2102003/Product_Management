@@ -68,18 +68,32 @@ public class ExcelUtil {
 		return list;
 	}
 
+	/*
+	 * This method safely converts any Excel cell to a clean string value —
+	 * returning an empty string if the cell is null. It uses DataFormatter to
+	 * handle all cell types (text, number, date, etc.) and trim() to remove extra
+	 * spaces.
+	 */
+
 	private static String getCellString(Cell cell) {
 		if (cell == null)
 			return "";
-		cell.setCellType(CellType.STRING);
-		return cell.getStringCellValue().trim();
+		DataFormatter formatter = new DataFormatter();
+		return formatter.formatCellValue(cell).trim();
 	}
 
 	public static void writeExcel(List<Product> products, String filePath) {
+		// created workbook
 		try (Workbook workbook = new XSSFWorkbook()) {
+
+			// created sheet that's name is products
 			Sheet sheet = workbook.createSheet("Products");
+
+			// created one row at 0 which is header
 			Row header = sheet.createRow(0);
+
 			String[] cols = { "ProductCode", "ProductName", "Category", "UOM", "Price" };
+			// created header cells
 			for (int i = 0; i < cols.length; i++)
 				header.createCell(i).setCellValue(cols[i]);
 
@@ -106,4 +120,8 @@ public class ExcelUtil {
 		}
 	}
 
+	// explicit method for writing error Excel
+	public static void writeErrorExcel(List<Product> failedProducts, String filePath) {
+		writeExcel(failedProducts, filePath);
+	}
 }
