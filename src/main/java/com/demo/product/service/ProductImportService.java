@@ -8,18 +8,36 @@ import java.io.*;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
+//Contains business logic - validate inputs
+//Calls DAO methods(to store data or retrieve data from database)
+//Calls ExcelUtil methods(to write and read Excel)
 public class ProductImportService {
 
 	private final ProductDAO dao = new ProductDAO();
 
+	// Business logic for import products
 	public void importProducts(String filePath) {
+
+		// Calls ExcelUtil's method readExcel() which returns the list of products data
 		List<Product> products = ExcelUtil.readExcel(filePath);
-		//List<Product> failed = new ArrayList<>();
+
+		// Contains products list which failed to import to database
+		List<Product> failed = new ArrayList<>();
+
+		// Variables that contains the count of inserted recorsds, skipped records &
+		// failed records
 		int inserted = 0, skipped = 0, failedCount = 0;
 
 		String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 		String logPath = "./logs/Product_ErrorLog_" + timestamp + ".txt";
 
+		/*
+		 * Java statement that creates a BufferedWriter for efficient file writing.
+		 * FileWriter object: This object directly connects to the file specified by
+		 * logPath.By default, it will overwrite the file's contents if the file already
+		 * exists.
+		 * 
+		 */
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(logPath))) {
 
 			for (Product p : products) {
@@ -28,7 +46,7 @@ public class ProductImportService {
 				if (p.getCategory() == null || p.getCategory().isBlank()) {
 					writer.write("NULL value which is Invalid Category for Product: " + p.getProductCode());
 					writer.newLine();
-					//failed.add(p);
+					failed.add(p);
 					failedCount++;
 					continue;
 				}
@@ -36,7 +54,7 @@ public class ProductImportService {
 				if (p.getUom() == null || p.getUom().isBlank()) {
 					writer.write("NULL value which is Invalid UOM for Product: " + p.getProductCode());
 					writer.newLine();
-					//failed.add(p);
+					failed.add(p);
 					failedCount++;
 					continue;
 				}
@@ -44,7 +62,7 @@ public class ProductImportService {
 				if (p.getProductCode() == null || p.getProductCode().isBlank()) {
 					writer.write("Missing Product Code");
 					writer.newLine();
-					//failed.add(p);
+					failed.add(p);
 					failedCount++;
 					continue;
 				}
@@ -52,7 +70,7 @@ public class ProductImportService {
 				if (p.getProductName() == null || p.getProductName().isBlank()) {
 					writer.write("Missing Product Name for Product: " + p.getProductCode());
 					writer.newLine();
-					//failed.add(p);
+					failed.add(p);
 					failedCount++;
 					continue;
 				}
@@ -72,7 +90,7 @@ public class ProductImportService {
 				else {
 					writer.write("DB Insert failed for Product: " + p.getProductCode());
 					writer.newLine();
-					//failed.add(p);
+					failed.add(p);//
 					failedCount++;
 				}
 			}
@@ -84,11 +102,14 @@ public class ProductImportService {
 			e.printStackTrace();
 		}
 
-		
-		
-		 
-
-		System.out.println(" Import Complete!");
+		// Export failed products to Excel
+		if (!failed.isEmpty()) {
+			String errorExcel = "./output/Product_Error_" + timestamp + ".xlsx";
+			ExcelUtil.writeErrorExcel(failed, errorExcel);
+			System.out.println("Exported failed rows to: " + errorExcel);
+			System.out.println("Error details logged in: " + logPath);
+		}
+		System.out.println("Import Complete!");
 		System.out.printf("\nInserted: %d \n Skipped: %d \n Failed: %d%n\n", inserted, skipped, failedCount);
 	}
 }
