@@ -1,0 +1,12 @@
+Skipped duplicate Product: P001
+Skipped duplicate Product: P002
+Skipped duplicate Product: P003
+Missing Product Name for Product: P004
+Skipped duplicate Product: P005
+Skipped duplicate Product: P005
+NULL value which is Invalid Category for Product: P006
+NULL value which is Invalid UOM for Product: P007
+Skipped duplicate Product: P008
+Skipped duplicate Product: P009
+
+Summary → Inserted: 0 | Skipped: 7 | Failed: 3
