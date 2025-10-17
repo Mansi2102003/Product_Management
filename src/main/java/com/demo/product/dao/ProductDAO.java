@@ -68,8 +68,8 @@ public class ProductDAO {
 		try (Connection conn = DBConnection.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ResultSet rs = ps.executeQuery()) {
-			
-			//Iterates over rows
+
+			// Iterates over rows
 			while (rs.next()) {
 				Product p = new Product();
 				p.setId(rs.getInt("id"));
@@ -83,14 +83,14 @@ public class ProductDAO {
 				} else {
 					p.setPrice(null);
 				}
-				//Adds One row to list
+				// Adds One row to list
 				list.add(p);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		//Returns Lists of All Rows
+
+		// Returns Lists of All Rows
 		return list;
 	}
 

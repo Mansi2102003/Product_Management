@@ -4,16 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
-//Handles PostgreSQL DB connection using properties file.
+//Handles PostgreSQL DB connection using getConnection method.
 
 public class DBConnection {
-    private static final String URL = "jdbc:postgresql://localhost:5432/productdb";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "mansi0210";
+	private static final String URL = "jdbc:postgresql://localhost:5432/productdb";
+	private static final String USER = "postgres";
+	private static final String PASSWORD = "mansi0210";
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
-    }
+	public static Connection getConnection() throws SQLException {
+		return DriverManager.getConnection(URL, USER, PASSWORD);
+	}
 }
-

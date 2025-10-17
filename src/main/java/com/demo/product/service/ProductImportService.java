@@ -13,7 +13,17 @@ import java.text.SimpleDateFormat;
 //Calls ExcelUtil methods(to write and read Excel)
 public class ProductImportService {
 
-	private final ProductDAO dao = new ProductDAO();
+	private ProductDAO dao = new ProductDAO();
+	
+	// Constructor injection for testing
+    public ProductImportService(ProductDAO dao) {
+        this.dao = dao;
+    }
+
+    // Default constructor for normal use
+    public ProductImportService() {
+        this.dao = new ProductDAO();
+    }
 
 	// Business logic for import products
 	public void importProducts(String filePath) {
