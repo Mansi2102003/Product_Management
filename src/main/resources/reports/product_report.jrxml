@@ -1,6 +1,4 @@
-<!-- Tells Jasper what data and layout to use -->
-
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?><!-- Tells Jasper what data and layout to use -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
@@ -17,7 +15,7 @@
     
     <!-- title band content displayed at the top of the first page -->
     <title>
-        <band height="100">
+        <band height="70">
         
         	<!-- staticText shows fixed text (report header)-->
             <staticText>
@@ -30,7 +28,16 @@
         </band>
     </title>
    
-        
+    <columnHeader>
+        <band height="20">
+            <staticText><reportElement x="0" y="0" width="80" height="20"/><text><![CDATA[Code]]></text></staticText>
+            <staticText><reportElement x="80" y="0" width="160" height="20"/><text><![CDATA[Name]]></text></staticText>
+            <staticText><reportElement x="240" y="0" width="100" height="20"/><text><![CDATA[Category]]></text></staticText>
+            <staticText><reportElement x="340" y="0" width="80" height="20"/><text><![CDATA[UOM]]></text></staticText>
+            <staticText><reportElement x="420" y="0" width="80" height="20"/><text><![CDATA[Price]]></text></staticText>
+        </band>
+    </columnHeader>
+    
     
    
 </jasperReport>
