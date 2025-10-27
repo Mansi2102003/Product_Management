@@ -13,6 +13,18 @@
 	bottomMargin = "20"
 	whenNoDataType="AllSectionsNoDetail">
     
+    
+    <queryString>
+        <![CDATA[SELECT productcode, productname, category, uom, price FROM products]]>
+    </queryString>
+    
+    <field name="productcode" class="java.lang.String"/>
+    <field name="productname" class="java.lang.String"/>
+    <field name="category" class="java.lang.String"/>
+    <field name="uom" class="java.lang.String"/>
+    <field name="price" class="java.math.BigDecimal"/>
+    
+    
     <!-- title band content displayed at the top of the first page -->
     <title>
         <band height="70">
@@ -37,6 +49,11 @@
             <staticText><reportElement x="420" y="0" width="80" height="20"/><text><![CDATA[Price]]></text></staticText>
         </band>
     </columnHeader>
+    
+   
+     
+    
+    
     
     
    
