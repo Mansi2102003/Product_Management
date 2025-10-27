@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?><!-- Tells Jasper what data and layout to use -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
@@ -13,16 +13,33 @@
 	bottomMargin = "20"
 	whenNoDataType="AllSectionsNoDetail">
     
+    
+    <queryString>
+        <![CDATA[SELECT productcode, productname, category, uom, price FROM products]]>
+    </queryString>
+    
+    <field name="productcode" class="java.lang.String"/>
+    <field name="productname" class="java.lang.String"/>
+    <field name="category" class="java.lang.String"/>
+    <field name="uom" class="java.lang.String"/>
+    <field name="price" class="java.math.BigDecimal"/>
+    
+    
+    <!-- title band content displayed at the top of the first page -->
     <title>
-        <band height="100">
+        <band height="70">
+        
+        	<!-- staticText shows fixed text (report header)-->
             <staticText>
+            
+            	<!-- reportElement positions the element -->
                 <reportElement x="0" y="10" width="555" height="40"/>
                 <textElement textAlignment="Center"><font size="20" isBold="true"/></textElement>
                 <text><![CDATA[Product Master Report]]></text>
             </staticText>
         </band>
     </title>
-    
+   
     <columnHeader>
         <band height="20">
             <staticText><reportElement x="0" y="0" width="80" height="20"/><text><![CDATA[Code]]></text></staticText>
@@ -33,7 +50,8 @@
         </band>
     </columnHeader>
     
-        <detail>
+   
+      <detail>
         <band height="20">
             <textField><reportElement x="0" y="0" width="80" height="20"/><textFieldExpression><![CDATA[$F{productcode}]]></textFieldExpression></textField>
             <textField><reportElement x="80" y="0" width="160" height="20"/><textFieldExpression><![CDATA[$F{productname}]]></textFieldExpression></textField>
@@ -42,6 +60,9 @@
             <textField><reportElement x="420" y="0" width="80" height="20"/><textFieldExpression><![CDATA[$F{price}]]></textFieldExpression></textField>
         </band>
     </detail>
+    
+    
+    
     
    
 </jasperReport>

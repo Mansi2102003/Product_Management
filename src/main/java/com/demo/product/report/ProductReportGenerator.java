@@ -8,6 +8,7 @@ import com.demo.product.util.DBConnection;
 
 import net.sf.jasperreports.engine.*;
 
+//Starts the report process and connects to DB
 public class ProductReportGenerator {
 
     public static void main(String[] args) {
