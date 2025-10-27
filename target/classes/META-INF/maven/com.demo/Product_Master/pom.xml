@@ -23,6 +23,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.21.0</version>
+		</dependency>
+
 		<!-- PostgreSQL Database -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
